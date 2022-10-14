@@ -7,9 +7,7 @@ import { Flex, Text, Tabs } from '@chakra-ui/react';
 import Wizard from '../';
 
 const Container = ({ children, title, description }) => {
-  const properties = Wizard.useWizard();
-
-  console.log(properties);
+  const properties = Wizard.useWizard({ maxStep: children.props.children.length });
 
   return (
     <Wizard.WizardProvider {...properties}>
@@ -22,7 +20,13 @@ const Container = ({ children, title, description }) => {
             {description}
           </Text>
         </Flex>
-        <Tabs variant="unstyled" mt="24px" display="flex" flexDirection="column">
+        <Tabs
+          index={properties.step}
+          onChange={(index) => properties.toStep(index)}
+          variant="unstyled"
+          mt="24px"
+          display="flex"
+          flexDirection="column">
           {children}
         </Tabs>
       </Flex>
