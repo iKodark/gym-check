@@ -1,12 +1,31 @@
 import React from 'react';
 
-import { any } from 'prop-types';
+import { any, func } from 'prop-types';
 
 import { TabList, TabPanels, TabPanel, Flex, Text, Button } from '@chakra-ui/react';
 import { WizardContext } from '../contexts';
+import { FormProvider } from 'react-hook-form';
 
-const Steps = ({ children }) => {
-  const { step, nextStep, backStep } = React.useContext(WizardContext);
+const Steps = ({ children, submit }) => {
+  const { backStep, nextStep, step, maxStep } = React.useContext(WizardContext);
+  const key = 'wizard';
+
+  const lastStep = step === maxStep - 1;
+
+  const onSubmit = (values) => {
+    const wizardStorage = JSON.parse(localStorage.getItem(key));
+    localStorage.setItem(
+      key,
+      JSON.stringify({ ...wizardStorage, values: { ...wizardStorage.values, ...values } })
+    );
+
+    if (lastStep) {
+      submit();
+      return;
+    }
+    console.log('next');
+    nextStep();
+  };
 
   return (
     <>
@@ -22,7 +41,7 @@ const Steps = ({ children }) => {
       </TabList>
       <TabPanels mt="24px" maxW={{ md: '90%', lg: '100%' }} mx="auto">
         {React.Children.map(children, (child) => {
-          const { description, subDescription } = child.props;
+          const { handleSubmit = () => {}, description, subDescription, ...form } = child.props;
 
           return (
             <TabPanel w={{ sm: '330px', md: '700px', lg: '850px' }} mx="auto">
@@ -42,28 +61,33 @@ const Steps = ({ children }) => {
                   </Text>
                 </Flex>
               </Flex>
-              {React.cloneElement(child.props.children)}
-              {step}
-              <Flex justifyContent="space-between" flexDirection="row-reverse">
-                <Button
-                  color="bg.dark.primary"
-                  alignSelf="flex-end"
-                  mt="24px"
-                  w={{ sm: '75px', lg: '100px' }}
-                  h="35px"
-                  onClick={nextStep}>
-                  Próximo
-                </Button>
-                <Button
-                  color="bg.dark.primary"
-                  alignSelf="flex-end"
-                  mt="24px"
-                  w={{ sm: '75px', lg: '100px' }}
-                  h="35px"
-                  onClick={backStep}>
-                  Voltar
-                </Button>
-              </Flex>
+              <FormProvider {...form}>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  {child.props.children && React.cloneElement(child.props.children)}
+                  <Flex justifyContent="space-between" flexDirection="row-reverse">
+                    <Button
+                      type="submit"
+                      color="bg.dark.primary"
+                      alignSelf="flex-end"
+                      mt="24px"
+                      w={{ sm: '75px', lg: '100px' }}
+                      h="35px">
+                      {!lastStep ? 'Próximo' : 'Enviar'}
+                    </Button>
+                    {!!step && (
+                      <Button
+                        color="bg.dark.primary"
+                        alignSelf="flex-end"
+                        mt="24px"
+                        w={{ sm: '75px', lg: '100px' }}
+                        h="35px"
+                        onClick={backStep}>
+                        Voltar
+                      </Button>
+                    )}
+                  </Flex>
+                </form>
+              </FormProvider>
             </TabPanel>
           );
         })}
@@ -73,7 +97,8 @@ const Steps = ({ children }) => {
 };
 
 Steps.propTypes = {
-  children: any
+  children: any,
+  submit: func
 };
 
 export default Steps;
