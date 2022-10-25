@@ -14,8 +14,6 @@ const Informations = () => {
             placeholder="Número do cartão"
             type="text"
             size="lg"
-            borderColor="primary.500"
-            _hover={{ borderColor: 'primary.600' }}
           />
 
           <Input
@@ -24,8 +22,6 @@ const Informations = () => {
             placeholder="Nome do titular (como gravado no cartão)"
             type="text"
             size="lg"
-            borderColor="primary.500"
-            _hover={{ borderColor: 'primary.600' }}
           />
           <Grid templateColumns={{ sm: '1fr 1fr', lg: '1fr 1fr' }} gap="30px">
             <Input
@@ -34,18 +30,8 @@ const Informations = () => {
               placeholder="Validade do cartão"
               type="text"
               size="lg"
-              borderColor="primary.500"
-              _hover={{ borderColor: 'primary.600' }}
             />
-            <Input
-              name="cardCvv"
-              variant="outline"
-              placeholder="CVV"
-              type="text"
-              size="lg"
-              borderColor="primary.500"
-              _hover={{ borderColor: 'primary.600' }}
-            />
+            <Input name="cardCvv" variant="outline" placeholder="CVV" type="text" size="lg" />
           </Grid>
         </Stack>
       </Flex>

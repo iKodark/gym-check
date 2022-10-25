@@ -32,7 +32,7 @@ const Step = ({ title, index, lastStep }) => {
         }}>
         <Icon
           as={BsCircleFill}
-          color={actualStep ? 'gray.200' : 'gray.300'}
+          color={actualStep ? 'primary.500' : 'primary.600'}
           w={actualStep ? '16px' : '12px'}
           h={actualStep ? '16px' : '12px'}
           mb="8px"

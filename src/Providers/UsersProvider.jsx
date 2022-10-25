@@ -2,12 +2,25 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import { UsersContext } from '../Contexts';
+import { UsersContext } from '@Contexts';
 
-const UsersProvider = ({ children, users }) => (
+const UsersProvider = ({
+  children,
+  users,
+  createUser,
+  login,
+  loggedUser,
+  subscribeUser,
+  loggout
+}) => (
   <UsersContext.Provider
     value={{
-      users
+      users,
+      createUser,
+      login,
+      loggedUser,
+      subscribeUser,
+      loggout
     }}>
     {children}
   </UsersContext.Provider>
@@ -15,7 +28,12 @@ const UsersProvider = ({ children, users }) => (
 
 UsersProvider.propTypes = {
   children: PropTypes.node,
-  users: PropTypes.array
+  users: PropTypes.array,
+  createUser: PropTypes.func,
+  login: PropTypes.func,
+  loggedUser: PropTypes.object,
+  subscribeUser: PropTypes.func,
+  loggout: PropTypes.func
 };
 
 export default UsersProvider;

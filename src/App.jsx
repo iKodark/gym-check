@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Outlet } from 'react-router-dom';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import { UsersProvider } from '@Providers';
+import { useUsers } from '@Hooks';
 // import { ColorModeSwitcher } from './ColorModeSwitcher';
 
 const theme = extendTheme({
@@ -69,10 +71,14 @@ const theme = extendTheme({
 });
 
 function App() {
+  const propUsers = useUsers();
+
   return (
     <ChakraProvider theme={theme}>
-      {/* <ColorModeSwitcher justifySelf="flex-end" /> */}
-      <Outlet />
+      <UsersProvider {...propUsers}>
+        {/* <ColorModeSwitcher justifySelf="flex-end" /> */}
+        <Outlet />
+      </UsersProvider>
     </ChakraProvider>
   );
 }

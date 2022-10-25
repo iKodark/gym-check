@@ -15,8 +15,6 @@ const Informations = () => {
               placeholder="Digite o seu nome"
               type="text"
               size="lg"
-              borderColor="primary.500"
-              _hover={{ borderColor: 'primary.600' }}
             />
 
             <Input
@@ -25,8 +23,6 @@ const Informations = () => {
               placeholder="Digite seu e-mail"
               type="text"
               size="lg"
-              borderColor="primary.500"
-              _hover={{ borderColor: 'primary.600' }}
             />
           </Stack>
         </Flex>

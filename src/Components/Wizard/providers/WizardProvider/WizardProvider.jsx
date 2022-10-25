@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import { WizardContext } from '../../contexts';
 
-const WizardProvider = ({ children, step, nextStep, backStep, toStep, maxStep }) => (
-  <WizardContext.Provider value={{ step, nextStep, backStep, toStep, maxStep }}>
+const WizardProvider = ({ children, step, nextStep, backStep, toStep, maxStep, data }) => (
+  <WizardContext.Provider value={{ step, nextStep, backStep, toStep, maxStep, data }}>
     {children}
   </WizardContext.Provider>
 );
@@ -15,7 +15,8 @@ WizardProvider.propTypes = {
   maxStep: PropTypes.number,
   nextStep: PropTypes.func,
   backStep: PropTypes.func,
-  toStep: PropTypes.func
+  toStep: PropTypes.func,
+  data: PropTypes.object
 };
 
 export default WizardProvider;

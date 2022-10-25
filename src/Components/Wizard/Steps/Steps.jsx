@@ -7,24 +7,16 @@ import { WizardContext } from '../contexts';
 import { FormProvider } from 'react-hook-form';
 
 const Steps = ({ children, submit }) => {
-  const { backStep, nextStep, step, maxStep } = React.useContext(WizardContext);
-  const key = 'wizard';
+  const { backStep, nextStep, step, maxStep, data } = React.useContext(WizardContext);
 
   const lastStep = step === maxStep - 1;
 
   const onSubmit = (values) => {
-    const wizardStorage = JSON.parse(localStorage.getItem(key));
-    localStorage.setItem(
-      key,
-      JSON.stringify({ ...wizardStorage, values: { ...wizardStorage.values, ...values } })
-    );
-
     if (lastStep) {
-      submit();
+      submit({ ...values, ...data });
       return;
     }
-    console.log('next');
-    nextStep();
+    nextStep(values);
   };
 
   return (
