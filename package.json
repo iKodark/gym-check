@@ -19,6 +19,7 @@
     "react-icons": "^3.0.0",
     "react-router-dom": "6",
     "react-scripts": "5.0.1",
+    "react-toastify": "^9.1.1",
     "web-vitals": "^0.2.2",
     "yup": "^0.32.11"
   },

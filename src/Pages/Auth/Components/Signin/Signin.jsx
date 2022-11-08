@@ -17,6 +17,7 @@ import { UsersContext } from '@Contexts';
 import { useForm, FormProvider } from 'react-hook-form';
 
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Signin = ({ setScreen }) => {
   const navigate = useNavigate();
@@ -31,7 +32,10 @@ const Signin = ({ setScreen }) => {
 
   const onSubmit = (data) => {
     const loggedUser = login(data);
-    if (!loggedUser) return;
+    if (!loggedUser) {
+      toast.error('E-mail ou senha inválido!');
+      return;
+    }
 
     navigate('/dashboard');
   };
