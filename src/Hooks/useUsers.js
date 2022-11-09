@@ -19,11 +19,13 @@ const useUsers = () => {
 
     if (!userFound) return false;
 
+    localStorage.setItem('token', true);
     setLoggedUser(userFound);
     return true;
   };
 
   const loggout = () => {
+    localStorage.removeItem('token');
     setLoggedUser(null);
     navigate('');
   };
